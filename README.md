@@ -15,26 +15,57 @@ Notes:
 - Spring Boot 3.x
 
 
+### [Swagger URL of the application](http://localhost:8080/swagger-ui/index.html)
+
 ## API - quick examples
 
 Base URL: `http://localhost:8080` (adjust port if required)
 
+
+
 ### Get interest rates
 ```bash
-curl -s http://localhost:8080/api/interest-rates | jq
+curl --location 'http://localhost:8080/api/interest-rates'
 ```
 
 ### Mortgage check (valid)
 ```
-curl -s -X POST http://localhost:8080/api/mortgage-check \
-  -H "Content-Type: application/json" \
-  -d '{"income":50000,"maturityPeriod":20,"loanValue":150000,"homeValue":250000}' | jq
+curl --location 'http://localhost:8080/api/mortgage-check' \
+--header 'Content-Type: application/json' \
+--data '{
+    "income": 50000,
+    "maturityPeriod": 20,
+    "loanValue": 150000,
+    "homeValue": 250000
+}'
+```
+
+### Mortgage check (eligibility false  when Loan exceeds 4x income)
+```
+
+curl --location 'http://localhost:8080/api/mortgage-check' \
+--header 'Content-Type: application/json' \
+--data '{
+    "income": 5,
+    "maturityPeriod": 20,
+    "loanValue": 150000,
+    "homeValue": 250000
+}'
 ```
 
 ### Mortgage check (invalid request)
 ```
-curl -s -X POST http://localhost:8080/api/mortgage-check \
-  -H "Content-Type: application/json" \
-  -d '{"income":null,"maturityPeriod":20,"loanValue":150000,"homeValue":250000}' | jq
+curl --location 'http://localhost:8080/api/mortgage-check' \
+--header 'Content-Type: application/json' \
+--data '{
+"income": null,
+"maturityPeriod": 20,
+"loanValue": 150000,
+"homeValue": 250000
+}'
+```
 
+### To Run Integration tests
+```
+mvn verify -P integration-tests
 ```
