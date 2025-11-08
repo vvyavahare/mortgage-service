@@ -63,6 +63,24 @@
       <version>2.1.0</version>
     </dependency>
 
+    <!-- Micrometer Tracing with Brave (Zipkin compatible) -->
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-tracing-bridge-brave</artifactId>
+    </dependency>
+
+    <!--  Send traces to Zipkin -->
+    <dependency>
+      <groupId>io.zipkin.reporter2</groupId>
+      <artifactId>zipkin-reporter-brave</artifactId>
+    </dependency>
+
+    <!-- Observability metrics -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
 
     <!-- Tests -->
     <dependency>

@@ -6,11 +6,12 @@ import jakarta.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class InMemoryMortgageRateRepository implements MortgageRateRepository {
 
-    private final Map<Integer, MortgageRate> rates = new HashMap<>();
+    private final Map<Integer, MortgageRate> rates = new ConcurrentHashMap<>();
 
     @PostConstruct
     void seed() {
